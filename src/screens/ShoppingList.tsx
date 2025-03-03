@@ -1,9 +1,20 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../store/store";
+import { fetchTodo } from "../store/shoppingSlice";
+
 
 export const ShoppingList = () => {
   const navigate = useNavigate();
-  const items = ["Apples", "Bananas", "Oranges"]
-  const userName = "Jonh"
+  const dispatch = useDispatch<AppDispatch>();
+  // const items = ["Apples", "Bananas", "Oranges"]
+  const items = useSelector((state: RootState) => state.shopping.items);
+  const userName = useSelector((state: RootState) => state.username.users);
+
+  useEffect(() => {
+    dispatch(fetchTodo());
+  }, [dispatch]);
 
 
   return (
